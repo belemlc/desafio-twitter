@@ -16,8 +16,7 @@ defmodule DesafioTwitterWeb.Router do
 
   scope "/api", DesafioTwitterWeb do
     pipe_through :api
-    resources "/users", UserController, except: [:new, :edit]
-    resources "/users", UserController do
+    resources "/users", UserController, except: [:new, :edit] do
       get "status", UserController, :status
     end
     resources "/status", StatusController, except: [:new, :edit]
