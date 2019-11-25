@@ -7,6 +7,8 @@ defmodule DesafioTwitter.Account.User do
     field :name, :string
     field :password, :string
 
+    has_many :status, DesafioTwitter.UserStatus.Status
+
     timestamps()
   end
 

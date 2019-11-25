@@ -3,12 +3,18 @@ defmodule DesafioTwitterWeb.UserController do
 
   alias DesafioTwitter.Account
   alias DesafioTwitter.Account.User
+  alias DesafioTwitter.UserStatus.Status
 
   action_fallback DesafioTwitterWeb.FallbackController
 
   def index(conn, _params) do
     users = Account.list_users()
     render(conn, "index.json", users: users)
+  end
+
+  def status(conn, %{"user_id" => id}) do
+    user = Account.get_user!(id)
+    render(conn, "status.json", user: user)
   end
 
   def create(conn, %{"user" => user_params}) do

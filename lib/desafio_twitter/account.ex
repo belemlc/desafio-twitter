@@ -36,6 +36,7 @@ defmodule DesafioTwitter.Account do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+    |> Repo.preload(:status)
 
   @doc """
   Creates a user.
