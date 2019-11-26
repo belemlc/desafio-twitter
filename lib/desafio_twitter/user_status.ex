@@ -7,7 +7,6 @@ defmodule DesafioTwitter.UserStatus do
   alias DesafioTwitter.Repo
 
   alias DesafioTwitter.UserStatus.Status
-  alias DesafioTwitter.Account.User
 
   @doc """
   Returns the list of status.
