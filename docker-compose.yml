@@ -5,6 +5,12 @@ services:
     container_name: elixir
     build: 
       context: .
+    environment: 
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: desafio_twitter_dev
+      PGPORT: 5432
+      PGHOST: db
     depends_on: 
       - db
     networks: 
