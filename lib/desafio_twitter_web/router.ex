@@ -9,6 +9,10 @@ defmodule DesafioTwitterWeb.Router do
     plug(:accepts, ["html"])
   end
 
+  pipeline :auth do
+    plug DesafioTwitterWeb.Auth.Pipeline
+  end
+
   scope "/", DesafioTwitterWeb do
     pipe_through :browser
     get "/", DefaultController, :index
@@ -16,6 +20,12 @@ defmodule DesafioTwitterWeb.Router do
 
   scope "/api", DesafioTwitterWeb do
     pipe_through :api
+    post "/users/signup", UserController, :create
+    post "/users/signin", UserController, :signin
+  end
+
+  scope "/api", DesafioTwitterWeb do
+    pipe_through [:api, :auth]
     resources "/users", UserController, except: [:new, :edit] do
       get "status", UserController, :status
     end

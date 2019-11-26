@@ -3,7 +3,7 @@ defmodule DesafioTwitterWeb.UserController do
 
   alias DesafioTwitter.Account
   alias DesafioTwitter.Account.User
-  alias DesafioTwitter.UserStatus.Status
+  alias DesafioTwitter.Auth.Guardian
 
   action_fallback DesafioTwitterWeb.FallbackController
 
@@ -18,11 +18,19 @@ defmodule DesafioTwitterWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Account.create_user(user_params) do
+    with {:ok, %User{} = user} <- Account.create_user(user_params),
+    {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.user_path(conn, :show, user))
-      |> render("show.json", user: user)
+      |> render("jwt.json", %{user: user, token: token})
+    end
+  end
+
+  def signin(conn, %{"email" => email, "password" => password}) do
+    with {:ok, user, token} <- Guardian.authenticate(email, password) do
+      conn
+      |> put_status(:created)
+      |> render("jwt.json", %{user: user, token: token})
     end
   end
 

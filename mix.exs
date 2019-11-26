@@ -20,7 +20,7 @@ defmodule DesafioTwitter.MixProject do
   def application do
     [
       mod: {DesafioTwitter.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :guardian]
     ]
   end
 
@@ -43,7 +43,8 @@ defmodule DesafioTwitter.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:bcrypt_elixir, "~> 2.0"},
       {:comeonin, "~> 5.1"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:poison, "~> 3.1"}
     ]
   end
 
