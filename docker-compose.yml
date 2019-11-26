@@ -9,6 +9,7 @@ services:
       - db
     networks: 
       - dev-network
+    restart: always
   db:
     container_name: postgres
     image: postgres
@@ -20,6 +21,7 @@ services:
       - .docker/postgres/data:/var/lib/postgresql/data 
     networks:
       - dev-network
+    restart: always
 
 networks: 
   dev-network:
